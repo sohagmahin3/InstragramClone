@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -44,8 +45,24 @@ public class SignUpLogin extends AppCompatActivity {
                             FancyToast.makeText(SignUpLogin.this,appUser.get("username")+" is signed up successed!",FancyToast.SUCCESS,FancyToast.LENGTH_LONG,true).show();
 
                         }else {
-                            FancyToast.makeText(SignUpLogin.this,appUser.get("username")+"is Failed to Sign Up!",FancyToast.ERROR,FancyToast.LENGTH_LONG,true).show();
+                            FancyToast.makeText(SignUpLogin.this,e.getMessage(),FancyToast.ERROR,FancyToast.LENGTH_LONG,true).show();
 
+                        }
+                    }
+                });
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser.logInInBackground(editTextLoginUsername.getText().toString(), editTextLoginPassword.getText().toString(), new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
+                        if(user!= null && e ==null){
+                            FancyToast.makeText(SignUpLogin.this,user.get("username")+" is logged successfully!",FancyToast.SUCCESS,FancyToast.LENGTH_LONG,true).show();
+                        }else {
+                            FancyToast.makeText(SignUpLogin.this,e.getMessage(),FancyToast.ERROR,FancyToast.LENGTH_LONG,true).show();
                         }
                     }
                 });
