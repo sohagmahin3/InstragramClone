@@ -1,5 +1,6 @@
 package com.example.instragramclone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -60,7 +61,11 @@ public class SignUpLogin extends AppCompatActivity {
                     @Override
                     public void done(ParseUser user, ParseException e) {
                         if(user!= null && e ==null){
-                            FancyToast.makeText(SignUpLogin.this,user.get("username")+" is logged successfully!",FancyToast.SUCCESS,FancyToast.LENGTH_LONG,true).show();
+
+                            //if user is valid then swithing a new activity.
+                            Intent intent = new Intent(SignUpLogin.this,WelcomeActivity.class);
+                            startActivity(intent);
+                            FancyToast.makeText(SignUpLogin.this,user.get("username")+" is logged in successfully!",FancyToast.SUCCESS,FancyToast.LENGTH_LONG,true).show();
                         }else {
                             FancyToast.makeText(SignUpLogin.this,e.getMessage(),FancyToast.ERROR,FancyToast.LENGTH_LONG,true).show();
                         }
